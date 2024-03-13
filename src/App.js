@@ -1,7 +1,12 @@
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { CreateEmployee } from "./pages/CreateEmployee/CreateEmployee";
 
-function App() {
-   return <></>;
+export function App() {
+   return (
+      <>
+         <Routes>
+            <Route path="/" element={<CreateEmployee />} />
+         </Routes>
+      </>
+   );
 }
-
-export default App;

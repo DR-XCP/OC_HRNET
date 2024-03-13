@@ -1,0 +1,19 @@
+@font-face {
+   font-family: "Raleway";
+   src: url("../../assets/font/Raleway-ExtraBoldItalic.ttf");
+}
+
+.container {
+   background-color: #f8f9fa;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   text-align: center;
+}
+
+.title {
+   font-family: "Raleway";
+   font-size: 3rem;
+   color: #000000;
+   text-decoration: none;
+   padding: 2rem;
+   margin: 0;
+}
