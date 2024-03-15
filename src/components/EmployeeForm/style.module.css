@@ -1,0 +1,43 @@
+@font-face {
+   font-family: "Raleway";
+   src: url("../../assets/font/Raleway-Regular.ttf");
+}
+
+.formContainer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 2rem;
+}
+
+.formTitle {
+   margin-bottom: 3rem;
+}
+
+.form {
+   width: 350px;
+}
+
+.datePickers {
+   display: flex;
+   gap: 50px;
+}
+
+.address {
+   background-color: #fff;
+   font-family: "Raleway";
+   text-decoration: underline;
+   font-style: italic;
+   font-weight: bold;
+   text-align: center;
+}
+
+.stateAndZip {
+   display: flex;
+   gap: 50px;
+}
+
+.submitButton {
+   margin-left: 50%;
+   transform: translate(-50%);
+}
