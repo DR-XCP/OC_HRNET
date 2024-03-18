@@ -1,13 +1,34 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
+import { useDispatch } from "react-redux";
+import { addEmployee } from "../../store/reducers/reducer";
 import { US_STATES } from "../CityItems/CityItems";
 import { DepartmentItems } from "../DepartmentItems/DepartmentItems";
 import s from "./style.module.css";
 
 export function EmployeeForm() {
+   const dispatch = useDispatch();
+
+   const onFinish = (values) => {
+      // Convertis les dates en une chaîne ISO  avant de les dispatcher
+      const formattedValues = {
+         ...values,
+         "Date of Birth": values["Date of Birth"].format("YYYY-MM-DD"),
+         "Start Date": values["Start Date"].format("YYYY-MM-DD"),
+      };
+
+      dispatch(addEmployee(formattedValues));
+      console.log("Employee added:", formattedValues);
+   };
+
    return (
       <div role="form" className={s.formContainer}>
          <h2 className={s.formTitle}>Create Employee</h2>
-         <Form className={s.form} name="advanced_form" layout="vertical">
+         <Form
+            className={s.form}
+            onFinish={onFinish}
+            name="advanced_form"
+            layout="vertical"
+         >
             <Form.Item
                name="First Name"
                label="First Name"
