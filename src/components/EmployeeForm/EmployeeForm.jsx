@@ -1,5 +1,7 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 import { addEmployee } from "../../store/reducers/reducer";
 import { US_STATES } from "../CityItems/CityItems";
 import { DepartmentItems } from "../DepartmentItems/DepartmentItems";
@@ -7,17 +9,23 @@ import s from "./style.module.css";
 
 export function EmployeeForm() {
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    const onFinish = (values) => {
-      // Convertis les dates en une chaîne ISO  avant de les dispatcher
       const formattedValues = {
          ...values,
-         "Date of Birth": values["Date of Birth"].format("YYYY-MM-DD"),
-         "Start Date": values["Start Date"].format("YYYY-MM-DD"),
+         startDate: values.startDate
+            ? values.startDate.format("YYYY-MM-DD")
+            : null,
+         dateOfBirth: values.dateOfBirth
+            ? values.dateOfBirth.format("YYYY-MM-DD")
+            : null,
+         id: uuidv4(),
       };
 
-      dispatch(addEmployee(formattedValues));
       console.log("Employee added:", formattedValues);
+      dispatch(addEmployee(formattedValues));
+      navigate("/table");
    };
 
    return (
@@ -30,7 +38,7 @@ export function EmployeeForm() {
             layout="vertical"
          >
             <Form.Item
-               name="First Name"
+               name="firstName"
                label="First Name"
                aria-label="First Name"
                rules={[{ required: true, message: "Please add a First Name" }]}
@@ -40,7 +48,7 @@ export function EmployeeForm() {
 
             <Form.Item
                className={s.test}
-               name="Last Name"
+               name="lastName"
                label="Last Name"
                aria-label="Last Name"
                rules={[{ required: true, message: "Please add a Last Name" }]}
@@ -50,7 +58,7 @@ export function EmployeeForm() {
 
             <div className={s.datePickers}>
                <Form.Item
-                  name="Date of Birth"
+                  name="dateOfBirth"
                   label="Date of Birth"
                   aria-label="Date of Birth"
                   rules={[
@@ -64,7 +72,7 @@ export function EmployeeForm() {
                </Form.Item>
 
                <Form.Item
-                  name="Start Date"
+                  name="startDate"
                   label="Start Date"
                   aria-label="Start Date"
                   rules={[
@@ -78,7 +86,7 @@ export function EmployeeForm() {
             <p className={s.address}>Address</p>
 
             <Form.Item
-               name="Street"
+               name="street"
                label="Street"
                aria-label="Street"
                rules={[{ required: true, message: "Please add a Street" }]}
@@ -87,7 +95,7 @@ export function EmployeeForm() {
             </Form.Item>
 
             <Form.Item
-               name="City"
+               name="city"
                label="City"
                aria-label="City"
                rules={[{ required: true, message: "Please add a City" }]}
@@ -97,7 +105,7 @@ export function EmployeeForm() {
 
             <div className={s.stateAndZip}>
                <Form.Item
-                  name="State"
+                  name="state"
                   label="State"
                   aria-label="State"
                   rules={[{ required: true, message: "Please select a State" }]}
@@ -112,17 +120,17 @@ export function EmployeeForm() {
                </Form.Item>
 
                <Form.Item
-                  name="Zip Code"
+                  name="zipCode"
                   label="Zip Code"
                   aria-label="Zip Code"
                   rules={[{ required: true, message: "Please add a Zip Code" }]}
                >
-                  <Input placeholder="City" />
+                  <Input placeholder="Zip Code" />
                </Form.Item>
             </div>
 
             <Form.Item
-               name="Department"
+               name="department"
                label="Select a Department"
                aria-label="Department"
                rules={[
