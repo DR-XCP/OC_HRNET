@@ -1,8 +1,3 @@
-@font-face {
-   font-family: "Raleway";
-   src: url("../../assets/font/Raleway-Regular.ttf");
-}
-
 .formContainer {
    display: flex;
    flex-direction: column;
@@ -25,7 +20,6 @@
 
 .address {
    background-color: #fff;
-   font-family: "Raleway";
    text-decoration: underline;
    font-style: italic;
    font-weight: bold;
