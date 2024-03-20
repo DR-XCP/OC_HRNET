@@ -57,7 +57,6 @@ export function EmployeeTable() {
                   dataSource={filteredEmployees}
                   rowKey="id"
                />
-               <span className={s.showing}>Showing 0 to 0 of 0 entries</span>
             </div>
          </div>
       </>

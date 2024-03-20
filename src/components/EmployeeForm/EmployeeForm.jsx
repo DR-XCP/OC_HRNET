@@ -1,6 +1,10 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useForm } from "antd/es/form/Form";
+import { useState } from "react";
+import Modal from "react-modal-fromdr/dist/Modal";
+import { useModals } from "react-modal-fromdr/dist/contexts/ModalContext";
+import "react-modal-fromdr/dist/global.css";
 import { v4 as uuidv4 } from "uuid";
 import { addEmployee } from "../../store/reducers/reducer";
 import { US_STATES } from "../CityItems/CityItems";
@@ -9,7 +13,10 @@ import s from "./style.module.css";
 
 export function EmployeeForm() {
    const dispatch = useDispatch();
-   const navigate = useNavigate();
+   const { openModal, closeModal, modals } = useModals();
+   const modalId = "employeeSuccessModal";
+   const [modalContent, setModalContent] = useState("");
+   const [form] = useForm();
 
    const onFinish = (values) => {
       const formattedValues = {
@@ -23,15 +30,20 @@ export function EmployeeForm() {
          id: uuidv4(),
       };
 
-      console.log("Employee added:", formattedValues);
       dispatch(addEmployee(formattedValues));
-      navigate("/table");
+
+      const message = `${values.firstName} ${values.lastName} have been added`;
+      setModalContent(message);
+
+      openModal(modalId);
+      form.resetFields();
    };
 
    return (
       <div role="form" className={s.formContainer}>
          <h2 className={s.formTitle}>Create Employee</h2>
          <Form
+            form={form}
             className={s.form}
             onFinish={onFinish}
             name="advanced_form"
@@ -51,7 +63,6 @@ export function EmployeeForm() {
             >
                <Input placeholder="First Name" />
             </Form.Item>
-
             <Form.Item
                className={s.test}
                name="lastName"
@@ -67,7 +78,6 @@ export function EmployeeForm() {
             >
                <Input placeholder="Last Name" />
             </Form.Item>
-
             <div className={s.datePickers}>
                <Form.Item
                   name="dateOfBirth"
@@ -94,9 +104,7 @@ export function EmployeeForm() {
                   <DatePicker />
                </Form.Item>
             </div>
-
             <p className={s.address}>Address</p>
-
             <Form.Item
                name="street"
                label="Street"
@@ -111,7 +119,6 @@ export function EmployeeForm() {
             >
                <Input placeholder="Street" />
             </Form.Item>
-
             <Form.Item
                name="city"
                label="City"
@@ -126,7 +133,6 @@ export function EmployeeForm() {
             >
                <Input placeholder="City" />
             </Form.Item>
-
             <div className={s.stateAndZip}>
                <Form.Item
                   name="state"
@@ -155,7 +161,6 @@ export function EmployeeForm() {
                   <Input placeholder="Zip Code" />
                </Form.Item>
             </div>
-
             <Form.Item
                name="department"
                label="Select a Department"
@@ -175,7 +180,16 @@ export function EmployeeForm() {
                   ))}
                </Select>
             </Form.Item>
-
+            <div className={s.modal}>
+               {modals[modalId] && (
+                  <Modal
+                     id={modalId}
+                     contentSrc={modalContent}
+                     isOpen={modals[modalId]}
+                     onClose={() => closeModal(modalId)}
+                  />
+               )}
+            </div>
             <Form.Item>
                <Button
                   className={s.submitButton}

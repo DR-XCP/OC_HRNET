@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ModalProvider } from "react-modal-fromdr/dist/contexts/ModalContext";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
@@ -12,7 +13,9 @@ root.render(
    <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
          <BrowserRouter>
-            <App />
+            <ModalProvider>
+               <App />
+            </ModalProvider>
          </BrowserRouter>
       </PersistGate>
    </Provider>
