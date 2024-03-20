@@ -41,7 +41,13 @@ export function EmployeeForm() {
                name="firstName"
                label="First Name"
                aria-label="First Name"
-               rules={[{ required: true, message: "Please add a First Name" }]}
+               rules={[
+                  { required: true, message: "Please add a First Name" },
+                  {
+                     pattern: /^[A-Za-z]+$/,
+                     message: "First Name must be only letters",
+                  },
+               ]}
             >
                <Input placeholder="First Name" />
             </Form.Item>
@@ -51,7 +57,13 @@ export function EmployeeForm() {
                name="lastName"
                label="Last Name"
                aria-label="Last Name"
-               rules={[{ required: true, message: "Please add a Last Name" }]}
+               rules={[
+                  { required: true, message: "Please add a Last Name" },
+                  {
+                     pattern: /^[A-Za-z]+$/,
+                     message: "Last Name must be only letters",
+                  },
+               ]}
             >
                <Input placeholder="Last Name" />
             </Form.Item>
@@ -89,7 +101,13 @@ export function EmployeeForm() {
                name="street"
                label="Street"
                aria-label="Street"
-               rules={[{ required: true, message: "Please add a Street" }]}
+               rules={[
+                  { required: true, message: "Please add a Street" },
+                  {
+                     pattern: /^[A-Za-z0-9\s]+$/,
+                     message: "Street must be alphanumeric",
+                  },
+               ]}
             >
                <Input placeholder="Street" />
             </Form.Item>
@@ -98,7 +116,13 @@ export function EmployeeForm() {
                name="city"
                label="City"
                aria-label="City"
-               rules={[{ required: true, message: "Please add a City" }]}
+               rules={[
+                  { required: true, message: "Please add a City" },
+                  {
+                     pattern: /^[A-Za-z]+$/,
+                     message: "City must be only letters",
+                  },
+               ]}
             >
                <Input placeholder="City" />
             </Form.Item>
@@ -123,7 +147,10 @@ export function EmployeeForm() {
                   name="zipCode"
                   label="Zip Code"
                   aria-label="Zip Code"
-                  rules={[{ required: true, message: "Please add a Zip Code" }]}
+                  rules={[
+                     { required: true, message: "Please add a Zip Code" },
+                     { pattern: /^\d+$/, message: "Zip Code must be numeric" },
+                  ]}
                >
                   <Input placeholder="Zip Code" />
                </Form.Item>

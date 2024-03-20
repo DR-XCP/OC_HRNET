@@ -1,4 +1,5 @@
 import { Form, Input, Select, Table } from "antd";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { employeeColumns } from "../EmployeeColumns/EmployeeColumns";
 import s from "./style.module.css";
@@ -6,6 +7,16 @@ import s from "./style.module.css";
 export function EmployeeTable() {
    // Utilise useSelector pour accéder à l'état des employés dans le store Redux
    const employees = useSelector((state) => state.employees.list);
+   const [searchTerm, setSearchTerm] = useState("");
+
+   // Méthode recherche employé dans search bar
+   const filteredEmployees = employees.filter((employee) => {
+      const fullName =
+         `${employee.firstName} ${employee.lastName}`.toLowerCase();
+      const searchTermLower = searchTerm.toLowerCase();
+
+      return fullName.includes(searchTermLower);
+   });
 
    return (
       <>
@@ -30,14 +41,20 @@ export function EmployeeTable() {
 
             <div className={s.search}>
                <span>Search: </span>
-               <Input placeholder="Search" allowClear style={{ width: 200 }} />
+               <Input
+                  placeholder="Search"
+                  allowClear
+                  style={{ width: 200 }}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+               />
             </div>
 
             <div className={s.table}>
                <Table
                   className={s.tableContainer}
                   columns={employeeColumns}
-                  dataSource={employees}
+                  dataSource={filteredEmployees}
                   rowKey="id"
                />
                <span className={s.showing}>Showing 0 to 0 of 0 entries</span>
