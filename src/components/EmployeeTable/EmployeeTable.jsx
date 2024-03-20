@@ -8,6 +8,8 @@ export function EmployeeTable() {
    // Utilise useSelector pour accéder à l'état des employés dans le store Redux
    const employees = useSelector((state) => state.employees.list);
    const [searchTerm, setSearchTerm] = useState("");
+   const [pageSize, setPageSize] = useState(10);
+   const [currentPage, setCurrentPage] = useState(1);
 
    // Méthode recherche employé dans search bar
    const filteredEmployees = employees.filter((employee) => {
@@ -28,12 +30,13 @@ export function EmployeeTable() {
                   <Select
                      defaultValue="10"
                      style={{ width: 60 }}
+                     onChange={(value) => setPageSize(Number(value))}
                      aria-label="Select entries"
                   >
                      <Select.Option value="10">10</Select.Option>
-                     <Select.Option value="25">20</Select.Option>
+                     <Select.Option value="25">25</Select.Option>
                      <Select.Option value="50">50</Select.Option>
-                     <Select.Option value="50">100</Select.Option>
+                     <Select.Option value="100">100</Select.Option>
                   </Select>
                   <span> entries</span>
                </Form.Item>
@@ -52,6 +55,13 @@ export function EmployeeTable() {
 
             <div className={s.table}>
                <Table
+                  pagination={{
+                     current: currentPage,
+                     pageSize: pageSize,
+                     onChange: (page) => {
+                        setCurrentPage(page);
+                     },
+                  }}
                   className={s.tableContainer}
                   columns={employeeColumns}
                   dataSource={filteredEmployees}
