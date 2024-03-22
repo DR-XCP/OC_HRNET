@@ -1,10 +1,10 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
-import { useDispatch } from "react-redux";
 import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
 import Modal from "react-modal-fromdr/dist/Modal";
 import { useModals } from "react-modal-fromdr/dist/contexts/ModalContext";
 import "react-modal-fromdr/dist/global.css";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addEmployee } from "../../store/reducers/reducer";
 import { US_STATES } from "../CityItems/CityItems";
@@ -32,7 +32,7 @@ export function EmployeeForm() {
 
       dispatch(addEmployee(formattedValues));
 
-      const message = `${values.firstName} ${values.lastName} have been added`;
+      const message = `${values.firstName} ${values.lastName} has been added`;
       setModalContent(message);
 
       openModal(modalId);
@@ -61,8 +61,9 @@ export function EmployeeForm() {
                   },
                ]}
             >
-               <Input placeholder="First Name" />
+               <Input placeholder="First Name" minLength={2} maxLength={20} />
             </Form.Item>
+
             <Form.Item
                className={s.test}
                name="lastName"
@@ -76,7 +77,7 @@ export function EmployeeForm() {
                   },
                ]}
             >
-               <Input placeholder="Last Name" />
+               <Input placeholder="Last Name" minLength={2} maxLength={20} />
             </Form.Item>
             <div className={s.datePickers}>
                <Form.Item
@@ -117,8 +118,9 @@ export function EmployeeForm() {
                   },
                ]}
             >
-               <Input placeholder="Street" />
+               <Input placeholder="Street" minLength={2} maxLength={30} />
             </Form.Item>
+
             <Form.Item
                name="city"
                label="City"
@@ -131,8 +133,9 @@ export function EmployeeForm() {
                   },
                ]}
             >
-               <Input placeholder="City" />
+               <Input placeholder="City" minLength={2} maxLength={20} />
             </Form.Item>
+
             <div className={s.stateAndZip}>
                <Form.Item
                   name="state"
@@ -158,7 +161,7 @@ export function EmployeeForm() {
                      { pattern: /^\d+$/, message: "Zip Code must be numeric" },
                   ]}
                >
-                  <Input placeholder="Zip Code" />
+                  <Input placeholder="Zip Code" minLength={5} maxLength={5} />
                </Form.Item>
             </div>
             <Form.Item
@@ -180,16 +183,7 @@ export function EmployeeForm() {
                   ))}
                </Select>
             </Form.Item>
-            <div className={s.modal}>
-               {modals[modalId] && (
-                  <Modal
-                     id={modalId}
-                     contentSrc={modalContent}
-                     isOpen={modals[modalId]}
-                     onClose={() => closeModal(modalId)}
-                  />
-               )}
-            </div>
+
             <Form.Item>
                <Button
                   className={s.submitButton}
@@ -200,6 +194,28 @@ export function EmployeeForm() {
                </Button>
             </Form.Item>
          </Form>
+         {modals[modalId] && (
+            <Modal
+               id={modalId}
+               contentSrc={modalContent}
+               isOpen={modals[modalId]}
+               onClose={() => closeModal(modalId)}
+               styles={{
+                  modal: {
+                     width: "350px",
+                     height: "80px",
+                     borderRadius: "8px",
+                     display: "flex",
+                     justifyContent: "center",
+                     alignItems: "center",
+                  },
+                  closeButton: {
+                     right: "-50px",
+                     top: "-25px",
+                  },
+               }}
+            />
+         )}
       </div>
    );
 }

@@ -35,13 +35,3 @@
    margin-left: 50%;
    transform: translate(-50%);
 }
-
-.modal {
-   position: fixed;
-   left: 50%;
-   top: 50%;
-   transform: translate(-20%, -50%);
-   width: 50%;
-   background-color: #fff;
-   z-index: 1000;
-}
