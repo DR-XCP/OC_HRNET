@@ -18,12 +18,16 @@
    gap: 50px;
 }
 
-.address {
-   background-color: #fff;
-   text-decoration: underline;
-   font-style: italic;
-   font-weight: bold;
-   text-align: center;
+.addressFieldset {
+   border: none;
+}
+.addressLegend {
+   background-color: #fff !important;
+   text-decoration: underline !important;
+   font-style: italic !important;
+   font-weight: bold !important;
+   text-align: center !important;
+   border-bottom: 0 !important;
 }
 
 .stateAndZip {

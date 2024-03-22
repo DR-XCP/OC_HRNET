@@ -122,90 +122,86 @@ export function EmployeeForm() {
                </Form.Item>
             </div>
 
-            <fieldset className={s.addressFieldset}>
-               <legend className={s.addressLegend}>Address</legend>
+            <legend className={s.addressLegend}>Address</legend>
+            <Form.Item
+               name="street"
+               label="Street"
+               aria-label="Street"
+               aria-required="true"
+               rules={[
+                  { required: true, message: "Please add a Street" },
+                  {
+                     pattern: /^[A-Za-z0-9\s]+$/,
+                     message: "Street must be alphanumeric",
+                  },
+               ]}
+            >
+               <Input
+                  id="street"
+                  placeholder="Street"
+                  minLength={2}
+                  maxLength={30}
+               />
+            </Form.Item>
+
+            <Form.Item
+               name="city"
+               label="City"
+               aria-label="City"
+               aria-required="true"
+               rules={[
+                  { required: true, message: "Please add a City" },
+                  {
+                     pattern: /^[A-Za-z]+$/,
+                     message: "City must be only letters",
+                  },
+               ]}
+            >
+               <Input
+                  id="city"
+                  placeholder="City"
+                  minLength={2}
+                  maxLength={20}
+               />
+            </Form.Item>
+
+            <div className={s.stateAndZip}>
                <Form.Item
-                  name="street"
-                  label="Street"
-                  aria-label="Street"
+                  name="state"
+                  label="State"
+                  aria-required="true"
+                  rules={[{ required: true, message: "Please select a State" }]}
+               >
+                  <Select placeholder="Select a state">
+                     {US_STATES.map((state) => (
+                        <Select.Option key={state.value} value={state.value}>
+                           {state.label}
+                        </Select.Option>
+                     ))}
+                  </Select>
+               </Form.Item>
+
+               <Form.Item
+                  name="zipCode"
+                  label="Zip Code"
+                  aria-label="Zip Code"
                   aria-required="true"
                   rules={[
-                     { required: true, message: "Please add a Street" },
+                     { required: true, message: "Please add a Zip Code" },
                      {
-                        pattern: /^[A-Za-z0-9\s]+$/,
-                        message: "Street must be alphanumeric",
+                        pattern: /^\d+$/,
+                        message: "Zip Code must be numeric",
                      },
                   ]}
                >
                   <Input
-                     id="street"
-                     placeholder="Street"
-                     minLength={2}
-                     maxLength={30}
+                     id="zipCode"
+                     placeholder="Zip Code"
+                     minLength={5}
+                     maxLength={5}
                   />
                </Form.Item>
-
-               <Form.Item
-                  name="city"
-                  label="City"
-                  aria-label="City"
-                  aria-required="true"
-                  rules={[
-                     { required: true, message: "Please add a City" },
-                     {
-                        pattern: /^[A-Za-z]+$/,
-                        message: "City must be only letters",
-                     },
-                  ]}
-               >
-                  <Input
-                     id="city"
-                     placeholder="City"
-                     minLength={2}
-                     maxLength={20}
-                  />
-               </Form.Item>
-
-               <div className={s.stateAndZip}>
-                  <Form.Item
-                     name="state"
-                     label="State"
-                     aria-required="true"
-                     rules={[
-                        { required: true, message: "Please select a State" },
-                     ]}
-                  >
-                     <Select placeholder="Select a state">
-                        {US_STATES.map((state) => (
-                           <Select.Option key={state.value} value={state.value}>
-                              {state.label}
-                           </Select.Option>
-                        ))}
-                     </Select>
-                  </Form.Item>
-
-                  <Form.Item
-                     name="zipCode"
-                     label="Zip Code"
-                     aria-label="Zip Code"
-                     aria-required="true"
-                     rules={[
-                        { required: true, message: "Please add a Zip Code" },
-                        {
-                           pattern: /^\d+$/,
-                           message: "Zip Code must be numeric",
-                        },
-                     ]}
-                  >
-                     <Input
-                        id="zipCode"
-                        placeholder="Zip Code"
-                        minLength={5}
-                        maxLength={5}
-                     />
-                  </Form.Item>
-               </div>
-            </fieldset>
+            </div>
             <Form.Item
                name="department"
                label="Select a Department"
