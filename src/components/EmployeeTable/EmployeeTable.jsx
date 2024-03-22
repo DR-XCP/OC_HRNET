@@ -22,30 +22,32 @@ export function EmployeeTable() {
 
    return (
       <>
-         <div className={s.tableContainer}>
-            <h2 className={s.title}>Current Employees</h2>
+         <section className={s.tableContainer} aria-labelledby="tableTitle">
+            <h2 id="tableTitle" className={s.title}>
+               Current Employees
+            </h2>
             <div className={s.show}>
-               <Form.Item>
-                  <span>Show </span>
+               <Form.Item label="Show entries" htmlFor="entriesSelect">
                   <Select
+                     id="entriesSelect"
                      defaultValue="10"
                      style={{ width: 60 }}
                      onChange={(value) => setPageSize(Number(value))}
-                     aria-label="Select entries"
+                     aria-label="Select number of entries to display"
                   >
                      <Select.Option value="10">10</Select.Option>
                      <Select.Option value="25">25</Select.Option>
                      <Select.Option value="50">50</Select.Option>
                      <Select.Option value="100">100</Select.Option>
                   </Select>
-                  <span> entries</span>
                </Form.Item>
             </div>
 
             <div className={s.search}>
-               <span>Search: </span>
+               <label htmlFor="searchInput">Search:</label>
                <Input
-                  placeholder="Search"
+                  id="searchInput"
+                  placeholder="Search employees"
                   allowClear
                   style={{ width: 200 }}
                   value={searchTerm}
@@ -68,7 +70,7 @@ export function EmployeeTable() {
                   rowKey="id"
                />
             </div>
-         </div>
+         </section>
       </>
    );
 }

@@ -40,8 +40,10 @@ export function EmployeeForm() {
    };
 
    return (
-      <div role="form" className={s.formContainer}>
-         <h2 className={s.formTitle}>Create Employee</h2>
+      <section className={s.formContainer} aria-labelledby="formTitle">
+         <h2 id="formTitle" className={s.formTitle}>
+            Create Employee
+         </h2>
          <Form
             form={form}
             className={s.form}
@@ -53,6 +55,7 @@ export function EmployeeForm() {
                name="firstName"
                label="First Name"
                aria-label="First Name"
+               aria-required="true"
                rules={[
                   { required: true, message: "Please add a First Name" },
                   {
@@ -61,7 +64,12 @@ export function EmployeeForm() {
                   },
                ]}
             >
-               <Input placeholder="First Name" minLength={2} maxLength={20} />
+               <Input
+                  id="firstName"
+                  placeholder="First Name"
+                  minLength={2}
+                  maxLength={20}
+               />
             </Form.Item>
 
             <Form.Item
@@ -69,6 +77,7 @@ export function EmployeeForm() {
                name="lastName"
                label="Last Name"
                aria-label="Last Name"
+               aria-required="true"
                rules={[
                   { required: true, message: "Please add a Last Name" },
                   {
@@ -77,13 +86,19 @@ export function EmployeeForm() {
                   },
                ]}
             >
-               <Input placeholder="Last Name" minLength={2} maxLength={20} />
+               <Input
+                  id="lastName"
+                  placeholder="Last Name"
+                  minLength={2}
+                  maxLength={20}
+               />
             </Form.Item>
             <div className={s.datePickers}>
                <Form.Item
                   name="dateOfBirth"
-                  label="Date of Birth"
+                  label={<span id="dobLabel">Date of Birth</span>}
                   aria-label="Date of Birth"
+                  aria-required="true"
                   rules={[
                      {
                         required: true,
@@ -96,8 +111,9 @@ export function EmployeeForm() {
 
                <Form.Item
                   name="startDate"
-                  label="Start Date"
+                  label={<span id="startLabel">Start Date</span>}
                   aria-label="Start Date"
+                  aria-required="true"
                   rules={[
                      { required: true, message: "Please select a Start Date" },
                   ]}
@@ -105,69 +121,96 @@ export function EmployeeForm() {
                   <DatePicker />
                </Form.Item>
             </div>
-            <p className={s.address}>Address</p>
-            <Form.Item
-               name="street"
-               label="Street"
-               aria-label="Street"
-               rules={[
-                  { required: true, message: "Please add a Street" },
-                  {
-                     pattern: /^[A-Za-z0-9\s]+$/,
-                     message: "Street must be alphanumeric",
-                  },
-               ]}
-            >
-               <Input placeholder="Street" minLength={2} maxLength={30} />
-            </Form.Item>
 
-            <Form.Item
-               name="city"
-               label="City"
-               aria-label="City"
-               rules={[
-                  { required: true, message: "Please add a City" },
-                  {
-                     pattern: /^[A-Za-z]+$/,
-                     message: "City must be only letters",
-                  },
-               ]}
-            >
-               <Input placeholder="City" minLength={2} maxLength={20} />
-            </Form.Item>
-
-            <div className={s.stateAndZip}>
+            <fieldset className={s.addressFieldset}>
+               <legend className={s.addressLegend}>Address</legend>
                <Form.Item
-                  name="state"
-                  label="State"
-                  aria-label="State"
-                  rules={[{ required: true, message: "Please select a State" }]}
-               >
-                  <Select placeholder="Select a state">
-                     {US_STATES.map((state) => (
-                        <Select.Option key={state.value} value={state.value}>
-                           {state.label}
-                        </Select.Option>
-                     ))}
-                  </Select>
-               </Form.Item>
-
-               <Form.Item
-                  name="zipCode"
-                  label="Zip Code"
-                  aria-label="Zip Code"
+                  name="street"
+                  label="Street"
+                  aria-label="Street"
+                  aria-required="true"
                   rules={[
-                     { required: true, message: "Please add a Zip Code" },
-                     { pattern: /^\d+$/, message: "Zip Code must be numeric" },
+                     { required: true, message: "Please add a Street" },
+                     {
+                        pattern: /^[A-Za-z0-9\s]+$/,
+                        message: "Street must be alphanumeric",
+                     },
                   ]}
                >
-                  <Input placeholder="Zip Code" minLength={5} maxLength={5} />
+                  <Input
+                     id="street"
+                     placeholder="Street"
+                     minLength={2}
+                     maxLength={30}
+                  />
                </Form.Item>
-            </div>
+
+               <Form.Item
+                  name="city"
+                  label="City"
+                  aria-label="City"
+                  aria-required="true"
+                  rules={[
+                     { required: true, message: "Please add a City" },
+                     {
+                        pattern: /^[A-Za-z]+$/,
+                        message: "City must be only letters",
+                     },
+                  ]}
+               >
+                  <Input
+                     id="city"
+                     placeholder="City"
+                     minLength={2}
+                     maxLength={20}
+                  />
+               </Form.Item>
+
+               <div className={s.stateAndZip}>
+                  <Form.Item
+                     name="state"
+                     label="State"
+                     aria-required="true"
+                     rules={[
+                        { required: true, message: "Please select a State" },
+                     ]}
+                  >
+                     <Select placeholder="Select a state">
+                        {US_STATES.map((state) => (
+                           <Select.Option key={state.value} value={state.value}>
+                              {state.label}
+                           </Select.Option>
+                        ))}
+                     </Select>
+                  </Form.Item>
+
+                  <Form.Item
+                     name="zipCode"
+                     label="Zip Code"
+                     aria-label="Zip Code"
+                     aria-required="true"
+                     rules={[
+                        { required: true, message: "Please add a Zip Code" },
+                        {
+                           pattern: /^\d+$/,
+                           message: "Zip Code must be numeric",
+                        },
+                     ]}
+                  >
+                     <Input
+                        id="zipCode"
+                        placeholder="Zip Code"
+                        minLength={5}
+                        maxLength={5}
+                     />
+                  </Form.Item>
+               </div>
+            </fieldset>
             <Form.Item
                name="department"
                label="Select a Department"
                aria-label="Department"
+               aria-required="true"
                rules={[
                   { required: true, message: "Please select a Department" },
                ]}
@@ -216,6 +259,6 @@ export function EmployeeForm() {
                }}
             />
          )}
-      </div>
+      </section>
    );
 }
