@@ -32,7 +32,7 @@ export function EmployeeForm() {
 
       dispatch(addEmployee(formattedValues));
 
-      const message = `${values.firstName} ${values.lastName} has been added`;
+      const message = `${values.firstName} ${values.lastName} has been added!`;
       setModalContent(message);
 
       openModal(modalId);
@@ -240,17 +240,14 @@ export function EmployeeForm() {
                isOpen={modals[modalId]}
                onClose={() => closeModal(modalId)}
                styles={{
-                  modal: {
-                     width: "350px",
-                     height: "80px",
-                     borderRadius: "8px",
-                     display: "flex",
-                     justifyContent: "center",
-                     alignItems: "center",
+                  container: {
+                     top: "50%",
+                     left: "50%",
+                     transform: "translate(-50%, -50%)",
                   },
-                  closeButton: {
-                     right: "-50px",
-                     top: "-25px",
+                  modal: {
+                     width: "290px",
+                     borderRadius: "8px",
                   },
                }}
             />
