@@ -104,6 +104,24 @@ export function EmployeeForm() {
                         required: true,
                         message: "Please select a Date of Birth",
                      },
+                     {
+                        validator: (_, value) => {
+                           if (!value) {
+                              return Promise.resolve();
+                           }
+                           const eighteenYears = new Date(
+                              new Date().setFullYear(
+                                 new Date().getFullYear() - 18
+                              )
+                           );
+                           if (value.isAfter(eighteenYears)) {
+                              return Promise.reject(
+                                 new Error("The minimum age required is 18.")
+                              );
+                           }
+                           return Promise.resolve();
+                        },
+                     },
                   ]}
                >
                   <DatePicker />
